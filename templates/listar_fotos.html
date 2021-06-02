@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+    {% include 'alerts.html' %}
+    <div class="page-header">
+        <div class="row">
+            <!-- Page header, center on small screens -->
+            <h1 class="col-xs-12 col-sm-4 text-center text-left-sm">
+                <i class="fa fa-edit page-header-icon"></i>&nbsp;&nbsp;Administración de Fotos
+            </h1>
+            <div class="col-xs-12 col-sm-8">
+                <div class="row">
+                    <hr class="visible-xs no-grid-gutter-h">
+                    <!-- "Create project" button, width=auto on desktops -->
+                    <div class="pull-right col-xs-12 col-sm-auto">
+                        <a href="{% url 'adicionar_foto'%}" class="btn  btn-labeled btn-primary">
+                               <span class="btn-label icon fa fa-plus"></span>
+                                    Adicionar Foto
+                        </a>
+                    </div>
+                    <!-- Margin -->
+                    <div class="visible-xs clearfix form-group-margin"></div>
+                    <!-- Search field -->
+                </div>
+            </div>
+        </div>
+    </div> <!-- / .page-header -->
+    <!-- / Javascript -->
+    <div class="panel">
+        <div class="panel-body">
+            <div class="table-primary">
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-example">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>imagen</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for foto in fotos %}
+                        <tr class="odd gradeX">
+                            <td>{{ forloop.counter }}</td>
+                            <td><img src="{{foto.imagen.url}}" style="height: 100px; width: 100px; border-radius: 50px 50px 50px 50px;" ></td>
+                            
+                            <td>
+                                <div class="btn-group" >
+                                    <a href="{% url 'visualizar_foto' foto.id_foto %}" class="btn btn-primary">Visualizar</a>
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" style="z-index: 100 !important;">
+                                        <li><a href="{% url 'modificar_foto' foto.id_foto %}" >Modificar</a></li>
+                                        <li><a href="{% url 'borrar_foto' foto.id_foto %}">Eliminar</a></li>
+                                    </ul>
+                                </div>&nbsp;
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        init.push(function ()
+        {
+            $('#jq-datatables-example').dataTable();
+            $('#jq-datatables-example_wrapper .table-caption').text('Listado de Clientes');
+            $('#jq-datatables-example_wrapper .dataTables_filter input').attr('placeholder', 'Buscar...');
+        });
+    </script>
+{% endblock %}

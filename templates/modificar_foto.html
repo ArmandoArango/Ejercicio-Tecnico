@@ -1,0 +1,19 @@
+{% extends 'base_crud.html' %}
+
+{% block titulo_formulario_vehiculo %}
+    <i class="fa fa-edit page-header-icon"></i>Modificar Foto
+{% endblock %}
+
+{% block boton_accion_vehiculo %}
+    <button type="submit" class="btn btn-primary">Modificar</button>
+{% endblock %}
+
+{% block scripts_crud %}
+    <script>
+        $('#id_rol').prop('readonly', true);
+        $('#id_rol').prop('disabled', true);
+        $('#id_usuid').prop('readonly', true);
+        $('#id_usuid').prop('disabled', true);
+
+    </script>
+{% endblock %}
